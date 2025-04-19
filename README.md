@@ -86,6 +86,13 @@ The library includes built-in error handling for common scenarios:
 - Throws an error if the requested number of workers exceeds available CPU cores
 - Gracefully handles process termination signals (SIGINT, SIGTERM)
 
+## When Not to Use This Library
+
+While Clustrex is great for many use cases, there are scenarios where you might want to consider alternatives:
+
+- **Single-threaded Applications**: If your application doesn't benefit from parallel processing or doesn't handle CPU-intensive tasks, the overhead of managing multiple processes might not be worth it.
+- **Memory-constrained Environments**: Each worker process creates a separate instance of your application, which means increased memory usage. If you're running in a memory-constrained environment, this might not be ideal.
+
 ## License
 
 ISC
