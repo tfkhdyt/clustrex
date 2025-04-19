@@ -2,7 +2,7 @@
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
     "target": "es2016",
-    "module": "ESNext", // Output modern JavaScript with ESM syntax
+    "module": "NodeNext", // Changed from ESNext to NodeNext to match moduleResolution
     "moduleResolution": "NodeNext", // Or "Node16" depending on your Node.js version support
     "outDir": "dist/esm", // Output ESM files to this directory
     "declaration": true, // Generate declaration files

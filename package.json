@@ -2,7 +2,15 @@
   "name": "clustrex",
   "version": "0.0.1",
   "description": "A simple and efficient way to create a cluster of worker processes in Node.js",
-  "main": "src/index.ts",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "scripts": {
     "build": "tsup"
   },
@@ -28,6 +36,9 @@
   "tsup": {
     "entry": [
       "src/index.ts"
+    ],
+    "format": [
+      "esm"
     ],
     "splitting": true,
     "skipNodeModulesBundle": true,
