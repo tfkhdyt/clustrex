@@ -80,7 +80,7 @@ Creates a cluster of worker processes that execute the provided callback functio
 - `callback`: A function that will be executed in each worker process. The function can be synchronous or return a Promise.
 - `options`: Optional configuration object with the following properties:
   - `enable`: Whether to enable clustering. When set to `false`, the callback will run in the main process. Defaults to `true`.
-  - `numberOfWorkers`: Number of worker processes to create. Cannot exceed the number of available CPU cores. Defaults to the number of CPU cores on the system.
+  - `numOfWorkers`: Number of worker processes to create. Cannot exceed the number of available CPU cores. Defaults to the number of CPU cores on the system.
 
 ## Error Handling
 
