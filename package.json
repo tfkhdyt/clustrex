@@ -1,6 +1,6 @@
 {
   "name": "clustrex",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A simple and efficient way to create a cluster of worker processes in Node.js",
   "type": "module",
   "main": "./dist/index.js",
