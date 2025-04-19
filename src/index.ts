@@ -61,9 +61,13 @@ type Options = {
 export function createCluster(cb: () => void, opts?: Options) {
   const { enable = true, numOfWorkers = numCPUs } = opts ?? {};
 
-  if (enable && cluster.isPrimary) {
-    createWorkerProcesses(numOfWorkers);
+  if (enable) {
+    if (cluster.isPrimary) {
+      createWorkerProcesses(numOfWorkers);
+    } else {
+      cb();
+    }
+  } else {
+    cb();
   }
-
-  cb();
 }
