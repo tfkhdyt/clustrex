@@ -14,7 +14,7 @@ const numCPUs = availableParallelism();
 function createWorkerProcesses(numOfWorkers: number) {
   if (numOfWorkers > numCPUs) {
     throw new Error(
-      `numOfWorkers cannot be greater than the number of CPUs (Your CPU has ${numCPUs} cores)`
+      `numOfWorkers cannot be greater than the number of CPUs (Your CPU has ${numCPUs} cores)`,
     );
   }
 
@@ -58,7 +58,7 @@ type Options = {
  * @param cb - Callback function to execute in worker processes
  * @param opts - Configuration options for worker processes
  */
-export function createCluster(cb: () => void, opts?: Options) {
+export function createCluster(cb: () => void | Promise<void>, opts?: Options) {
   const { enable = true, numOfWorkers = numCPUs } = opts ?? {};
 
   if (enable) {
