@@ -3,8 +3,14 @@
   "version": "0.0.3",
   "description": "A simple and efficient way to create a cluster of worker processes in Node.js",
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "prepare": "pnpm build"
   },
   "keywords": [
     "cluster",
