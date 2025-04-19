@@ -2,26 +2,27 @@ import cluster from "node:cluster";
 import { availableParallelism } from "node:os";
 
 /**
- * The number of CPU cores available on the system
+ * The number of CPU cores available on the system.
  */
-const numCPUs = availableParallelism();
+const numberCPUs = availableParallelism();
 
 /**
- * Forks the specified number of worker processes using Node.js cluster module
- * @param numOfWorkers - The number of worker processes to create
- * @throws Error if numOfWorkers exceeds available CPU cores
+ * Forks the specified number of worker processes using Node.js cluster module.
+ *
+ * @param numberOfWorkers - The number of worker processes to create
+ * @throws {Error} If numberOfWorkers exceeds available CPU cores
  */
-function createWorkerProcesses(numOfWorkers: number) {
-  if (numOfWorkers > numCPUs) {
+function createWorkerProcesses(numberOfWorkers: number) {
+  if (numberOfWorkers > numberCPUs) {
     throw new Error(
-      `numOfWorkers cannot be greater than the number of CPUs (Your CPU has ${numCPUs} cores)`,
+      `numOfWorkers cannot be greater than the number of CPUs (Your CPU has ${numberCPUs} cores)`
     );
   }
 
   console.log(`Primary ${process.pid} is running`);
 
   // Create worker processes
-  for (let i = 0; i < numOfWorkers; i++) {
+  for (let index = 0; index < numberOfWorkers; index++) {
     cluster.fork();
   }
 
@@ -44,30 +45,35 @@ function createWorkerProcesses(numOfWorkers: number) {
 }
 
 /**
- * Configuration options for the worker processes
+ * Configuration options for the worker processes.
  */
 type Options = {
-  /** Whether to enable clustering (default: true) */
+  /** Whether to enable clustering. Defaults to true. */
   enable?: boolean;
-  /** Number of worker processes to create (default: number of CPU cores) */
+  /** Number of worker processes to create. Defaults to number of CPU cores. */
   numOfWorkers?: number;
 };
 
 /**
- * Sets up worker processes using Node.js cluster module
- * @param cb - Callback function to execute in worker processes
- * @param opts - Configuration options for worker processes
+ * Sets up worker processes using Node.js cluster module.
+ *
+ * @param callback - Function to execute in worker processes
+ * @param options - Configuration options for worker processes
  */
-export function createCluster(cb: () => void | Promise<void>, opts?: Options) {
-  const { enable = true, numOfWorkers = numCPUs } = opts ?? {};
+export function createCluster(
+  callback: () => void | Promise<void>,
+  options?: Options
+) {
+  const { enable = true, numOfWorkers: numberOfWorkers = numberCPUs } =
+    options ?? {};
 
   if (enable) {
     if (cluster.isPrimary) {
-      createWorkerProcesses(numOfWorkers);
+      createWorkerProcesses(numberOfWorkers);
     } else {
-      cb();
+      callback();
     }
   } else {
-    cb();
+    callback();
   }
 }
