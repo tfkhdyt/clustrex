@@ -61,7 +61,7 @@ type Options = {
  * @param options - Configuration options for worker processes
  */
 export function createCluster(
-  callback: () => void | Promise<void>,
+  callback: (pid: number) => void | Promise<void>,
   options?: Options
 ) {
   const { enable = true, numOfWorkers: numberOfWorkers = numberCPUs } =
@@ -71,9 +71,9 @@ export function createCluster(
     if (cluster.isPrimary) {
       createWorkerProcesses(numberOfWorkers);
     } else {
-      callback();
+      callback(process.pid);
     }
   } else {
-    callback();
+    callback(process.pid);
   }
 }
